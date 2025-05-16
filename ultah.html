@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login Ulang Tahun Tian</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-image: url('images.jpeg'); /* Gambar monyet */
+      background-size: cover;
+      background-position: center;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    .login-box {
+      background: rgba(255, 255, 255, 0.9);
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+      text-align: center;
+      width: 320px;
+    }
+    .login-box h2 {
+      margin-bottom: 10px;
+    }
+    #clock {
+      font-size: 18px;
+      color: #333;
+      margin-bottom: 20px;
+    }
+    input[type="text"], input[type="password"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    button {
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      background: #6a5acd;
+      color: white;
+      cursor: pointer;
+    }
+    #togglePassword {
+      background: none;
+      color: #333;
+      font-size: 18px;
+      cursor: pointer;
+      border: none;
+      margin-bottom: 10px;
+    }
+    #error-message {
+      color: red;
+      margin-bottom: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="login-box">
+    <h2>Login Dulu ya, Tian 💜</h2>
+    <div id="clock">Memuat jam...</div>
+    <form id="loginForm">
+      <input type="text" id="username" placeholder="Username" required><br>
+      <input type="password" id="password" placeholder="Password" required>
+      <button type="button" id="togglePassword">👁️</button><br>
+      <div id="error-message"></div>
+      <button type="submit">Login</button>
+    </form>
+  </div>
+
+  <audio id="bg-music" src="kids-happy-335134.mp3" style="display:none;" autoplay loop></audio>
+
+  <script>
+    function updateClock() {
+      const now = new Date();
+      const jam = now.getHours().toString().padStart(2, '0');
+      const menit = now.getMinutes().toString().padStart(2, '0');
+      const detik = now.getSeconds().toString().padStart(2, '0');
+      document.getElementById("clock").textContent = `Jam sekarang: ${jam}:${menit}:${detik}`;
+    }
+    setInterval(updateClock, 1000);
+    updateClock();
+
+    document.getElementById("loginForm").addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const now = new Date();
+      const jam = now.getHours();
+      const menit = now.getMinutes();
+
+      const username = document.getElementById("username").value.trim();
+      const password = document.getElementById("password").value;
+      const errorMsg = document.getElementById("error-message");
+
+      if (jam !== 0 || menit !== 0) {
+        errorMsg.textContent = "Login hanya bisa dilakukan tepat pukul 00:00!";
+        return;
+      }
+
+      if (username === "Tian Zafran" && password === "eumm pap") {
+        errorMsg.textContent = "";
+        alert("Login berhasil! Selamat ulang tahun 🎉");
+
+        const music = document.getElementById("bg-music");
+        music.style.display = "block";
+        music.play();
+
+        document.querySelector(".login-box").innerHTML = `
+          <h2>Selamat Ulang Tahun, Tian! 🎂🎉</h2>
+          <p>Semoga harimu penuh kebahagiaan, panjang umur, happy selalu, sayangg Tian 💜</p>
+          <p>Gaada PAP Bugilss YAAA 😆😝</p>
+        `;
+      } else {
+        errorMsg.textContent = "Username atau password salah!";
+      }
+    });
+
+    document.getElementById("togglePassword").addEventListener("click", function () {
+      const passInput = document.getElementById("password");
+      if (passInput.type === "password") {
+        passInput.type = "text";
+        this.textContent = "🙈";
+      } else {
+        passInput.type = "password";
+        this.textContent = "👁️";
+      }
+    });
+  </script>
+</body>
+</html>
